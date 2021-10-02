@@ -1,5 +1,6 @@
 package writer.view;
 
-public class View {
+public class View 
+{
 
 }
