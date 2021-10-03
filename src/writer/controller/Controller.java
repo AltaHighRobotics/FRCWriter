@@ -17,9 +17,11 @@ public class Controller
 	
 	public void main()
 	{
-		dataList = mywrite.canMotor(4, "jeff");
-		System.out.println(dataList);
-		
+		String textTry = mywrite.txtToString("canSub1.txt");
+		System.out.println (textTry);
+//		dataList = mywrite.canMotor(4, "jeff");
+//		System.out.println(dataList);
+//		
 		
 //		try
 //		{

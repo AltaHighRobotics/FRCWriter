@@ -1,5 +1,7 @@
 package writer.model;
 
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.*;
 
 public class FRCWriter 
@@ -21,6 +23,8 @@ public class FRCWriter
 		
 		return data;
 	}
+	
+
 	public ArrayList <String> canMotor(int canNumber, String canName)
 	{
 		String subName = canName + "Sub";
@@ -59,5 +63,19 @@ public class FRCWriter
 		String pneumaticsData = "";
 		
 		return pneumaticsData;
+	}
+	
+	public String txtToString(String condition)
+	{
+		String txtToString = "";
+	    try 
+	    {
+	    	txtToString = new String(Files.readAllBytes(Paths.get(condition)));
+	    } catch (IOException exception) 
+	    {
+	      exception.printStackTrace();
+	    }
+
+		return txtToString;
 	}
 }
