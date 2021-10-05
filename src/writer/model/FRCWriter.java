@@ -37,9 +37,17 @@ public class FRCWriter
 		canSub += "    /**  Creates a new " + subName + ". */ \n";
 		for (int i = 0; i < canNumber; i++) 
 		{
-			canSub += "    private TalonFX " + canName + i + "\n";  
+			canSub += "    private TalonFX " + canName + i + ";\n";  
 		}
-		
+		canSub += "    public " + subName + "() { \n";
+		for (int i = 0, i < canNumber; i++)
+		{
+			canSub += "        TalonFX " + canName + " = new TalonFX(Constants." + canName.toUpperCase() + "); \n";
+		}
+		for (int i = 0, i < canNumber; i++)
+		{
+			canSub += "        " + canName + ".setNeutralMode(NeutralMode.Coast); \n";
+		}
 				
 		canMotorData.add(canSub);
 		
