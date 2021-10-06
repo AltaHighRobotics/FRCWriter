@@ -61,15 +61,18 @@ public class Controller
 		}
 		
 		//writes the necessary data to subsystem java file
-		 try {
+		try 
+		{
 		      FileWriter subWriter = new FileWriter(javaSub);
 		      subWriter.write(dataList.get(0));
 		      subWriter.close();
 		      System.out.println("Successfully wrote to the file.");
-		    } catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
-		    }
+		}
 		
 		 //creates command java file
 		try
@@ -91,15 +94,18 @@ public class Controller
 		}
 		
 		//writes the necessary data to command java file
-		try {
+		try 
+		{
 		      FileWriter cmdWriter = new FileWriter(javaCmd);
 		      cmdWriter.write(dataList.get(1));
 		      cmdWriter.close();
 		      System.out.println("Successfully wrote to the file.");
-		    } catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
-		    }
+		}
 		
 	}
 }
