@@ -30,7 +30,7 @@ public class Controller
 	public void getFRCData()
 	{	
 		dataList = mywrite.processText("can", objectName, 2);
-		writeFRCFiles();
+		//writeFRCFiles();
 	}
 	
 	public void writeFRCFiles()
