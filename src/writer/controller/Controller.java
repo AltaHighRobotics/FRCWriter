@@ -17,8 +17,8 @@ public class Controller
 	
 	public void main()
 	{
-		dataList = mywrite.canMotor(4, "jeff");
-		System.out.println(dataList);
+		dataList = mywrite.canMotor(2, "Jeff");
+		System.out.println(dataList.get(1));
 //		
 		
 //		try
