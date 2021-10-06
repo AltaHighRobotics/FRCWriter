@@ -31,6 +31,9 @@ public class FRCWriter
 		
 		ArrayList <String> canMotorData = new ArrayList <String>();
 		String canSub = "";
+		String canCmdOn = "";
+		String canCmdOff = "";
+		
 		canSub += txtToString("canSub1.txt");
 		canSub += "\n";
 		canSub += "\n";
@@ -68,10 +71,19 @@ public class FRCWriter
 			canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_OFF_SPEED); \n";
 		}
 		canSub += "    } \n";
-		canSub+="}";
+		canSub +="}";
 		
 		canMotorData.add(canSub);
 		
+		
+		
+		canCmdOn += txtToString("canCmd1.txt");
+		canCmdOn += "\n";
+		canCmdOn += "import frc.robot.subsystems." + canName + "Sub; \n" ;
+		canCmdOn += canName + "OnCommand extends CommandBase { \n";
+		canCmdOn += "  /** Creates a new " + canName + "OnCommand. */ \n";
+		
+		canMotorData.add(canCmdOn);
 		return canMotorData;
 	}
 	
