@@ -81,7 +81,9 @@ public class Controller
             if (cmdFile.createNewFile()) 
             {
                 System.out.println("Command File Created");
-            } else {
+            } 
+            else 
+            {
                 System.out.println("Command File already exists, quitting program");
             }
         } 
