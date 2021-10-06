@@ -27,14 +27,21 @@ public class Controller
 		getFRCData();
 	}
 	
+	/**
+	 * gets the necessary data for the java files from process text
+	 */
 	public void getFRCData()
 	{	
 		dataList = mywrite.processText("can", objectName, 2);
 		//writeFRCFiles();
 	}
 	
+	/**
+	 * writes the data gotten from getFRCData() into java files
+	 */
 	public void writeFRCFiles()
 	{
+		//creates subsystem java file
 		try
 		{
 			File subFile = new File(javaSub);
@@ -53,6 +60,7 @@ public class Controller
 			e.printStackTrace();
 		}
 		
+		//writes the necessary data to subsystem java file
 		 try {
 		      FileWriter subWriter = new FileWriter(javaSub);
 		      subWriter.write(dataList.get(0));
@@ -63,7 +71,7 @@ public class Controller
 		      e.printStackTrace();
 		    }
 		
-		 
+		 //creates command java file
 		try
 		{
 			File cmdFile = new File(javaCmd);
@@ -82,6 +90,7 @@ public class Controller
 			e.printStackTrace();
 		}
 		
+		//writes the necessary data to command java file
 		try {
 		      FileWriter cmdWriter = new FileWriter(javaCmd);
 		      cmdWriter.write(dataList.get(1));

@@ -12,11 +12,19 @@ public class FRCWriter
 		
 	}
 	
+	/**
+	 * Uses given information to decide what method to run, and how it will run 
+	 * @param objectType The type of object on the robot, either a can motor, a rio motor or a pneumatic
+	 * @param objectName The name of the object that specifies its function
+	 * @param objectNumber The number of objects that is on the robot
+	 * @return list containing data that will be used to write future java files
+	 */
 	public ArrayList <String> processText(String objectType, String objectName, int objectNumber)
 	{
 		ArrayList <String> data = new ArrayList <String>();
 		
-		if (objectType.toLowerCase().equals("can"))
+		//checks to see if a can motor is being used
+		if (objectType.toLowerCase().equals("can")) 
 		{
 			data = canMotor(objectNumber, objectName);
 		}
@@ -24,7 +32,13 @@ public class FRCWriter
 		return data;
 	}
 	
-
+	/**
+	 * Uses given information to create a Subsystem and Command for a can file, each stored in String canSub and canCmd respectively
+	 * It then stores those 2 Strings in an ArrayList, canSub at index 0 and canCmd at index 1
+	 * @param canNumber The number of can motors
+	 * @param canName The name of the can motor
+	 * @return list containing data that will be used to write future java files
+	 */
 	private ArrayList <String> canMotor(int canNumber, String canName)
 	{
 		String subName = canName + "Sub";
@@ -32,51 +46,60 @@ public class FRCWriter
 		ArrayList <String> canMotorData = new ArrayList <String>();
 		String canSub = "";
 		String canCmd = "";
-		String canCmdOff = "";
 		
+		//adding new text to canSub based parameters
 		canSub += txtToString("canSub1.txt");
 		canSub += "\n";
 		canSub += "\n";
 		canSub += "public class " + subName + " extends SubsystemBase { \n";
 		canSub += "    /**  Creates a new " + subName + ". */ \n";
+		
 		for (int i = 0; i < canNumber; i++) 
 		{
 			canSub += "    private TalonFX " + canName + i + ";\n";  
 		}
+		
 		canSub += "\n";
 		canSub += "    public " + subName + "() { \n";
+		
 		for (int i = 0; i < canNumber; i++)
 		{
 			canSub += "        TalonFX " + canName + i + " = new TalonFX(Constants." + canName.toUpperCase() + i + "); \n";
 		}
+		
 		for (int i = 0; i < canNumber; i++)
 		{
 			canSub += "        " + canName + i + ".setNeutralMode(NeutralMode.Coast); \n";
 		}
+		
 		canSub += "    } \n";
 		canSub += "\n";
 		canSub += txtToString("canSub2.txt");
 		canSub += "\n";
 		canSub += "\n";
 		canSub += "    public void " + canName + "On() { \n";
+		
 		for (int i = 0; i < canNumber; i++)
 		{
 			canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_ON_SPEED); \n";
 		}
+		
 		canSub += "    } \n";
 		canSub += "\n";
 		canSub += "    public void " + canName + "Off() { \n";
+		
 		for (int i = 0; i < canNumber; i++)
 		{
 			canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_OFF_SPEED); \n";
 		}
+		
 		canSub += "    } \n";
 		canSub +="}";
 		
+		//adds the string to a list at index 0
 		canMotorData.add(canSub);
 		
-		
-		
+		//adding new text to canCmd based parameters
 		canCmd += txtToString("canCmd1.txt");
 		canCmd += "\n";
 		canCmd += "import frc.robot.subsystems." + canName + "Sub; \n" ;
@@ -90,7 +113,6 @@ public class FRCWriter
 		canCmd += "    addRequirements(m_" + canName.toLowerCase() + "Sub); \n";
 		canCmd += "  } \n";
 		canCmd += "\n";
-		
 		canCmd += txtToString("canCmd2.txt");
 		canCmd += "\n";
 		canCmd += "    m_" + canName.toLowerCase() + "Sub." + canName + "On(); \n";
@@ -104,6 +126,7 @@ public class FRCWriter
 		canCmd += "\n";
 		canCmd += txtToString("canCmd3.txt");
 		
+		//adding the string to a list at index 1
 		canMotorData.add(canCmd);
 		
 		return canMotorData;
@@ -123,12 +146,17 @@ public class FRCWriter
 		return pneumaticsData;
 	}
 	
-	private String txtToString(String condition)
+	/**
+	 * takes a .txt file and turns it into a string
+	 * @param fileName The name of the file the method will be reading
+	 * @return A string containing all the text from the file including indents and new lines
+	 */
+	private String txtToString(String fileName)
 	{
 		String txtToString = "";
 	    try 
 	    {
-	    	txtToString = new String(Files.readAllBytes(Paths.get(condition)));
+	    	txtToString = new String(Files.readAllBytes(Paths.get(fileName)));
 	    } catch (IOException exception) 
 	    {
 	      exception.printStackTrace();
