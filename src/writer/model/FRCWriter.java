@@ -154,13 +154,13 @@ public class FRCWriter
 	private String txtToString(String fileName)
 	{
 		String txtToString = "";
-	    try 
+		try 
 	    {
-	    	txtToString = new String(Files.readAllBytes(Paths.get(fileName)));
+			txtToString = new String(Files.readAllBytes(Paths.get(fileName)));
 	    } catch (IOException exception) 
-	    {
-	      exception.printStackTrace();
-	    }
+		{
+	    	exception.printStackTrace();
+		}
 
 		return txtToString;
 	}
