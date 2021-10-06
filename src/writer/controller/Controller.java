@@ -6,7 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import writer.model.FRCWriter;
 
-public class Controller {
+public class Controller 
+{
     private FRCWriter mywrite;
     private ArrayList < String > dataList;
     private String objectName;
