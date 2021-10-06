@@ -12,20 +12,20 @@ public class FRCWriter
 		
 	}
 	
-	public String placeholder(String objectType, String objectName, int objectNumber)
+	public ArrayList <String> processText(String objectType, String objectName, int objectNumber)
 	{
-		String data = "";
+		ArrayList <String> data = new ArrayList <String>();
 		
 		if (objectType.toLowerCase().equals("can"))
 		{
-			canMotor(objectNumber, objectName);
+			data = canMotor(objectNumber, objectName);
 		}
 		
 		return data;
 	}
 	
 
-	public ArrayList <String> canMotor(int canNumber, String canName)
+	private ArrayList <String> canMotor(int canNumber, String canName)
 	{
 		String subName = canName + "Sub";
 		
