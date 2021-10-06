@@ -31,7 +31,7 @@ public class FRCWriter
 		
 		ArrayList <String> canMotorData = new ArrayList <String>();
 		String canSub = "";
-		String canCmdOn = "";
+		String canCmd = "";
 		String canCmdOff = "";
 		
 		canSub += txtToString("canSub1.txt");
@@ -77,13 +77,35 @@ public class FRCWriter
 		
 		
 		
-		canCmdOn += txtToString("canCmd1.txt");
-		canCmdOn += "\n";
-		canCmdOn += "import frc.robot.subsystems." + canName + "Sub; \n" ;
-		canCmdOn += canName + "OnCommand extends CommandBase { \n";
-		canCmdOn += "  /** Creates a new " + canName + "OnCommand. */ \n";
+		canCmd += txtToString("canCmd1.txt");
+		canCmd += "\n";
+		canCmd += "import frc.robot.subsystems." + canName + "Sub; \n" ;
+		canCmd += "\n";
+		canCmd += "public class "+canName + "OnCommand extends CommandBase { \n";
+		canCmd += "  /** Creates a new " + canName + "OnCommand. */ \n";
+		canCmd += "  private final " + canName + "Sub m_" + canName.toLowerCase() + "Sub; \n";
+		canCmd += "\n";
+		canCmd += "  public " + canName + "OnCommand(" +canName + "Sub " + canName.toLowerCase() + "Sub) { \n";
+		canCmd += "    m_" + canName.toLowerCase() + "Sub = " + canName.toLowerCase() + "Sub; \n";
+		canCmd += "    addRequirements(m_" + canName.toLowerCase() + "Sub); \n";
+		canCmd += "  } \n";
+		canCmd += "\n";
 		
-		canMotorData.add(canCmdOn);
+		canCmd += txtToString("canCmd2.txt");
+		canCmd += "\n";
+		canCmd += "    m_" + canName.toLowerCase() + "Sub." + canName + "On(); \n";
+		canCmd += "  } \n";
+		canCmd += "\n";
+		canCmd += "  // Called once the command ends or is interrupted. \n";
+		canCmd += "  @Override \n";
+		canCmd += "  public void end(boolean interrupted) { \n";
+		canCmd += "    m_" + canName.toLowerCase() + "Sub." + canName + "Off(); \n";
+		canCmd += "  } \n";
+		canCmd += "\n";
+		canCmd += txtToString("canCmd3.txt");
+		
+		canMotorData.add(canCmd);
+		
 		return canMotorData;
 	}
 	
@@ -101,7 +123,7 @@ public class FRCWriter
 		return pneumaticsData;
 	}
 	
-	public String txtToString(String condition)
+	private String txtToString(String condition)
 	{
 		String txtToString = "";
 	    try 
