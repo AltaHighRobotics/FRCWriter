@@ -155,9 +155,10 @@ public class FRCWriter
 	{
 		String txtToString = "";
 		try 
-	    {
+	    	{
 			txtToString = new String(Files.readAllBytes(Paths.get(fileName)));
-	    } catch (IOException exception) 
+	    	}   
+		catch (IOException exception) 
 		{
 	    	exception.printStackTrace();
 		}
