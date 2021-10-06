@@ -33,22 +33,43 @@ public class FRCWriter
 		String canSub = "";
 		canSub += txtToString("canSub1.txt");
 		canSub += "\n";
+		canSub += "\n";
 		canSub += "public class " + subName + " extends SubsystemBase { \n";
 		canSub += "    /**  Creates a new " + subName + ". */ \n";
 		for (int i = 0; i < canNumber; i++) 
 		{
 			canSub += "    private TalonFX " + canName + i + ";\n";  
 		}
+		canSub += "\n";
 		canSub += "    public " + subName + "() { \n";
 		for (int i = 0; i < canNumber; i++)
 		{
-			canSub += "        TalonFX " + canName + " = new TalonFX(Constants." + canName.toUpperCase() + "); \n";
+			canSub += "        TalonFX " + canName + i + " = new TalonFX(Constants." + canName.toUpperCase() + i + "); \n";
 		}
 		for (int i = 0; i < canNumber; i++)
 		{
-			canSub += "        " + canName + ".setNeutralMode(NeutralMode.Coast); \n";
+			canSub += "        " + canName + i + ".setNeutralMode(NeutralMode.Coast); \n";
 		}
-				
+		canSub += "    } \n";
+		canSub += "\n";
+		canSub += txtToString("canSub2.txt");
+		canSub += "\n";
+		canSub += "\n";
+		canSub += "    public void " + canName + "On() { \n";
+		for (int i = 0; i < canNumber; i++)
+		{
+			canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_ON_SPEED); \n";
+		}
+		canSub += "    } \n";
+		canSub += "\n";
+		canSub += "    public void " + canName + "Off() { \n";
+		for (int i = 0; i < canNumber; i++)
+		{
+			canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_OFF_SPEED); \n";
+		}
+		canSub += "    } \n";
+		canSub+="}";
+		
 		canMotorData.add(canSub);
 		
 		return canMotorData;
