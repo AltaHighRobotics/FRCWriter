@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import writer.model.FRCWriter;
+import writer.view.Frame;
 
 public class Controller 
 {
@@ -13,9 +14,11 @@ public class Controller
     private String objectName;
     private String javaSub;
     private String javaCmd;
+    private Frame window;
 
     public Controller() 
     {
+    	this.window = new Frame(this);
         this.mywrite = new FRCWriter();
         this.objectName = "Jeff";
         this.javaSub = objectName + "Sub.java";
@@ -24,6 +27,7 @@ public class Controller
 
     public void main() 
     {
+    	System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
         getFRCData();
     }
 
