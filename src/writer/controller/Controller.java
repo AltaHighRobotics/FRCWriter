@@ -27,17 +27,16 @@ public class Controller
 
     public void main() 
     {
-    	System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
-        getFRCData();
+    	
     }
 
     /**
      * gets the necessary data for the java files from process text
      */
-    public void getFRCData() 
+    public void getFRCData(String type, String name, int number) 
     {
-        dataList = mywrite.processText("can", objectName, 2);
-        //writeFRCFiles();
+        dataList = mywrite.processText(type, name, number);
+        writeFRCFiles();
     }
 
     /**

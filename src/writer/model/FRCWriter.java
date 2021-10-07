@@ -24,7 +24,7 @@ public class FRCWriter
         ArrayList < String > data = new ArrayList < String > ();
 
         //checks to see if a can motor is being used
-        if (objectType.toLowerCase().equals("can")) 
+        if (objectType.equals("Can Motor")) 
         {
             data = canMotor(objectNumber, objectName);
         }

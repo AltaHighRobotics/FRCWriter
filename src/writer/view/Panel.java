@@ -4,6 +4,7 @@ import writer.controller.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Color;
+import java.awt.GridLayout;
 
 public class Panel extends JPanel
 {
@@ -13,6 +14,7 @@ public class Panel extends JPanel
 	private String [] objectList = {"Can Motor","Rio Motor", "Pneumatic"};  
 	private SpinnerModel objectNumber = new SpinnerNumberModel (1,1,15,1);
 	private JTextField objectName;
+	public JSpinner spinner;
 	
 	Panel(Controller controller)
 	{
@@ -27,9 +29,9 @@ public class Panel extends JPanel
 		setUpListeners();
 	}
 	
-	private void setupPanel()
+	public void setupPanel()
 	{
-		JSpinner spinner = new JSpinner(objectNumber);
+		spinner = new JSpinner(objectNumber);
 		
 		this.setBackground(Color.DARK_GRAY);
 		this.setSize(800, 600);
@@ -46,8 +48,28 @@ public class Panel extends JPanel
 		{
 			public void actionPerformed(ActionEvent click) 
 			{
-				controller.main();
+				controller.getFRCData(getCombo(), getTextField(), getSpinValue());
+				getTextField();
 			}
 		});
+	}
+	
+	public int getSpinValue()
+	{
+		int spinValue = (int) spinner.getValue();
+		return spinValue;
+	}
+	
+	public String getCombo()
+	{
+		String combo = (String) objectType.getSelectedItem().toString();
+		return combo;
+		
+	}
+	
+	public String getTextField()
+	{
+		String textFieldValue = objectName.getText();
+		return textFieldValue;
 	}
 }
