@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
+/**
+ * Used to make robot code automatically for FRC Java
+ * @author Byrnes Braden
+ *
+ */
 public class FRCWriter 
 {
 

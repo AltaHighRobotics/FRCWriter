@@ -105,11 +105,11 @@ public class Controller
             FileWriter cmdWriter = new FileWriter(javaCmd);
             cmdWriter.write(dataList.get(1));
             cmdWriter.close();
-           // System.out.println("Successfully wrote to the file.");
+           //System.out.println("Successfully wrote to the file.");
         } 
         catch (IOException e) 
         {
-          //  System.out.println("An error occurred.");
+            //System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
