@@ -33,6 +33,10 @@ public class FRCWriter
         {
             data = canMotor(objectNumber, objectName);
         }
+        if (objectType.equals("Rio Motor"))
+        {
+        	data = rioMotor(objectNumber, objectName);
+        }
 
         return data;
     }
@@ -172,7 +176,31 @@ public class FRCWriter
             rioSub += "        Victor " + rioName + i + " = new Victor(Constants." + rioName.toUpperCase() + i + "); \n";
         }
         
+        rioSub += "    } \n";
+        rioSub += "\n";
+        rioSub += txtToString("canSub2.txt");
+        rioSub += "\n";
+        rioSub += "\n";
+        rioSub += "    public void " + rioName + "On() { \n";
+        
+        for (int i = 0; i < rioNumber; i++) 
+        {
+            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_ON_SPEED); \n";
+        }
+        
+        rioSub += "    } \n";
+        rioSub += "\n";
+        rioSub += "    public void " + rioName + "Off() { \n";
+        
+        rioSub += "    } \n";
+        rioSub += "}";
     	
+        rioMotorData.add(rioSub);
+        
+        rioCmd = makeCommand(rioName);
+        
+        rioMotorData.add(rioCmd);
+        
         return rioMotorData;
     }
 
