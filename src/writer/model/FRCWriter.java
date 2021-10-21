@@ -37,6 +37,10 @@ public class FRCWriter
         {
         	data = rioMotor(objectNumber, objectName);
         }
+        if (objectType.equals("Pneumatic"))
+        {
+        	data = pneumatics(objectNumber, objectName);
+        }
 
         return data;
     }
@@ -204,9 +208,9 @@ public class FRCWriter
         return rioMotorData;
     }
 
-    public String pneumatics() 
+    public ArrayList < String > pneumatics(int pNumber, String pName) 
     {
-        String pneumaticsData = "";
+    	ArrayList < String > pneumaticsData = new ArrayList < String > ();
 
         return pneumaticsData;
     }
