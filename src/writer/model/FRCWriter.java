@@ -107,32 +107,6 @@ public class FRCWriter
         //adding new text to canCmd based parameters
         
         canCmd = makeCommand(canName);
-//        canCmd += txtToString("canCmd1.txt");
-//        canCmd += "\n";
-//        canCmd += "import frc.robot.subsystems." + canName + "Sub; \n";
-//        canCmd += "\n";
-//        canCmd += "public class " + canName + "OnCommand extends CommandBase { \n";
-//        canCmd += "  /** Creates a new " + canName + "OnCommand. */ \n";
-//        canCmd += "  private final " + canName + "Sub m_" + canName.toLowerCase() + "Sub; \n";
-//        canCmd += "\n";
-//        canCmd += "  public " + canName + "OnCommand(" + canName + "Sub " + canName.toLowerCase() + "Sub) { \n";
-//        canCmd += "    m_" + canName.toLowerCase() + "Sub = " + canName.toLowerCase() + "Sub; \n";
-//        canCmd += "    addRequirements(m_" + canName.toLowerCase() + "Sub); \n";
-//        canCmd += "  } \n";
-//        canCmd += "\n";
-//        canCmd += txtToString("canCmd2.txt");
-//        canCmd += "\n";
-//        canCmd += "    m_" + canName.toLowerCase() + "Sub." + canName + "On(); \n";
-//        canCmd += "  } \n";
-//        canCmd += "\n";
-//        canCmd += "  // Called once the command ends or is interrupted. \n";
-//        canCmd += "  @Override \n";
-//        canCmd += "  public void end(boolean interrupted) { \n";
-//        canCmd += "    m_" + canName.toLowerCase() + "Sub." + canName + "Off(); \n";
-//        canCmd += "  } \n";
-//        canCmd += "\n";
-//        canCmd += txtToString("canCmd3.txt");
-
         //adding the string to a list at index 1
         canMotorData.add(canCmd);
 
@@ -171,9 +145,9 @@ public class FRCWriter
     	return cmdString;
     }
 
-    public String rioMotor() 
+    public ArrayList < String > rioMotor(int rioNumber, String rioName) 
     {
-        String rioMotorData = "";
+    	ArrayList < String > rioMotorData = new ArrayList < String > ();
 
         return rioMotorData;
     }
