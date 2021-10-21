@@ -248,7 +248,7 @@ public class FRCWriter
         
         for (int i = 0; i < pNumber; i++) 
         {
-            pSub += "        " + pName + i + ".set(Constants." + pName.toUpperCase() + "_ON); \n";
+            pSub += "        " + pName + i + ".set(true); \n";
         }
         
         pSub += "    } \n";
@@ -257,7 +257,7 @@ public class FRCWriter
         
         for (int i = 0; i < pNumber; i++) 
         {
-            pSub += "        " + pName + i + ".set(Constants." + pName.toUpperCase() + "_OFF); \n";
+            pSub += "        " + pName + i + ".set(false); \n";
         }
         
         pSub += "    } \n";
