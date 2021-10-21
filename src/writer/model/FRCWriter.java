@@ -33,13 +33,13 @@ public class FRCWriter
         {
             data = canMotor(objectNumber, objectName);
         }
-        if (objectType.equals("Rio Motor"))
+        if (objectType.equals("Rio Motor")) 
         {
-        	data = rioMotor(objectNumber, objectName);
+            data = rioMotor(objectNumber, objectName);
         }
-        if (objectType.equals("Pneumatic"))
+        if (objectType.equals("Pneumatic")) 
         {
-        	data = pneumatics(objectNumber, objectName);
+            data = pneumatics(objectNumber, objectName);
         }
 
         return data;
@@ -92,7 +92,7 @@ public class FRCWriter
         canSub += "\n";
         canSub += "    public void " + canName + "On() { \n";
 
-        for (int i = 0; i < canNumber; i++) 
+        for (int i = 0; i < canNumber; i++)
         {
             canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_ON_SPEED); \n";
         }
@@ -113,18 +113,136 @@ public class FRCWriter
         canMotorData.add(canSub);
 
         //adding new text to canCmd based parameters
-        
+
         canCmd = makeCommand(canName);
         //adding the string to a list at index 1
         canMotorData.add(canCmd);
 
         return canMotorData;
     }
-    
-    public String makeCommand(String cmdName)
+
+    public ArrayList < String > rioMotor(int rioNumber, String rioName) 
     {
-    	String cmdString = "";
-    	cmdString += txtToString("canCmd1.txt");
+        ArrayList < String > rioMotorData = new ArrayList < String > ();
+
+        String subName = rioName + "Sub";
+        String rioSub = "";
+        String rioCmd = "";
+
+        rioSub += txtToString("canSub1.txt");
+        rioSub += "\n";
+        rioSub += "\n";
+        rioSub += "public class " + subName + " extends SubsystemBase { \n";
+        rioSub += "    /**  Creates a new " + subName + ". */ \n";
+
+        for (int i = 0; i < rioNumber; i++)
+        {
+            rioSub += "    private Victor " + rioName + i + ";\n";
+        }
+
+        rioSub += "\n";
+        rioSub += "    public " + subName + "() { \n";
+
+        for (int i = 0; i < rioNumber; i++) 
+        {
+            rioSub += "        Victor " + rioName + i + " = new Victor(Constants." + rioName.toUpperCase() + i + "); \n";
+        }
+
+        rioSub += "    } \n";
+        rioSub += "\n";
+        rioSub += txtToString("canSub2.txt");
+        rioSub += "\n";
+        rioSub += "\n";
+        rioSub += "    public void " + rioName + "On() { \n";
+
+        for (int i = 0; i < rioNumber; i++) 
+        {
+            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_ON_SPEED); \n";
+        }
+
+        rioSub += "    } \n";
+        rioSub += "\n";
+        rioSub += "    public void " + rioName + "Off() { \n";
+
+        for (int i = 0; i < rioNumber; i++) 
+        {
+            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_OFF_SPEED); \n";
+        }
+
+        rioSub += "    } \n";
+        rioSub += "}";
+
+        rioMotorData.add(rioSub);
+
+        rioCmd = makeCommand(rioName);
+
+        rioMotorData.add(rioCmd);
+
+        return rioMotorData;
+    }
+
+    public ArrayList < String > pneumatics(int pNumber, String pName) 
+    {
+        ArrayList < String > pneumaticsData = new ArrayList < String > ();
+        String subName = pName + "Sub";
+        String pSub = "";
+        String pCmd = "";
+
+        pSub += txtToString("canSub1.txt");
+        pSub += "\n";
+        pSub += "\n";
+        pSub += "public class " + subName + " extends SubsystemBase { \n";
+        pSub += "    /**  Creates a new " + subName + ". */ \n";
+
+        for (int i = 0; i < pNumber; i++)
+        {
+            pSub += "    private Final Solenoid " + pName + i + ";\n";
+        }
+
+        pSub += "\n";
+        pSub += "    public " + subName + "() { \n";
+
+        for (int i = 0; i < pNumber; i++)
+        {
+            pSub += "        " + pName + i + " = new Solenoid(Constants." + pName.toUpperCase() + i + "); \n";
+        }
+
+        pSub += "    } \n";
+        pSub += "\n";
+        pSub += txtToString("canSub2.txt");
+        pSub += "\n";
+        pSub += "\n";
+        pSub += "    public void " + pName + "On() { \n";
+
+        for (int i = 0; i < pNumber; i++) 
+        {
+            pSub += "        " + pName + i + ".set(true); \n";
+        }
+
+        pSub += "    } \n";
+        pSub += "\n";
+        pSub += "    public void " + pName + "Off() { \n";
+
+        for (int i = 0; i < pNumber; i++) 
+        {
+            pSub += "        " + pName + i + ".set(false); \n";
+        }
+
+        pSub += "    } \n";
+        pSub += "}";
+
+        pneumaticsData.add(pSub);
+
+        pCmd = makeCommand(pName);
+
+        pneumaticsData.add(pCmd);
+        return pneumaticsData;
+    }
+    
+      public String makeCommand(String cmdName) 
+    {
+        String cmdString = "";
+        cmdString += txtToString("canCmd1.txt");
         cmdString += "\n";
         cmdString += "import frc.robot.subsystems." + cmdName + "Sub; \n";
         cmdString += "\n";
@@ -149,126 +267,8 @@ public class FRCWriter
         cmdString += "  } \n";
         cmdString += "\n";
         cmdString += txtToString("canCmd3.txt");
-    	
-    	return cmdString;
-    }
 
-    public ArrayList < String > rioMotor(int rioNumber, String rioName) 
-    {
-    	ArrayList < String > rioMotorData = new ArrayList < String > ();
-    	
-    	String subName = rioName + "Sub";
-    	String rioSub = "";
-    	String rioCmd = "";
-    	
-    	rioSub += txtToString("canSub1.txt");
-        rioSub += "\n";
-        rioSub += "\n";
-        rioSub += "public class " + subName + " extends SubsystemBase { \n";
-        rioSub += "    /**  Creates a new " + subName + ". */ \n";
-        
-        for (int i = 0; i < rioNumber; i++)
-        {
-        	rioSub += "    private Victor " + rioName + i + ";\n";
-        }
-        
-        rioSub += "\n";
-        rioSub += "    public " + subName + "() { \n";
-        
-        for (int i = 0; i < rioNumber; i++) 
-        {
-            rioSub += "        Victor " + rioName + i + " = new Victor(Constants." + rioName.toUpperCase() + i + "); \n";
-        }
-        
-        rioSub += "    } \n";
-        rioSub += "\n";
-        rioSub += txtToString("canSub2.txt");
-        rioSub += "\n";
-        rioSub += "\n";
-        rioSub += "    public void " + rioName + "On() { \n";
-        
-        for (int i = 0; i < rioNumber; i++) 
-        {
-            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_ON_SPEED); \n";
-        }
-        
-        rioSub += "    } \n";
-        rioSub += "\n";
-        rioSub += "    public void " + rioName + "Off() { \n";
-        
-        for (int i = 0; i < rioNumber; i++) 
-        {
-            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_OFF_SPEED); \n";
-        }
-        
-        rioSub += "    } \n";
-        rioSub += "}";
-    	
-        rioMotorData.add(rioSub);
-        
-        rioCmd = makeCommand(rioName);
-        
-        rioMotorData.add(rioCmd);
-        
-        return rioMotorData;
-    }
-
-    public ArrayList < String > pneumatics(int pNumber, String pName) 
-    {
-    	ArrayList < String > pneumaticsData = new ArrayList < String > ();
-    	String subName = pName + "Sub";
-    	String pSub = "";
-    	String pCmd = "";
-    	
-    	pSub += txtToString("canSub1.txt");
-        pSub += "\n";
-        pSub += "\n";
-        pSub += "public class " + subName + " extends SubsystemBase { \n";
-        pSub += "    /**  Creates a new " + subName + ". */ \n";
-        
-        for (int i = 0; i < pNumber; i++)
-        {
-        	pSub += "    private Final Solenoid " + pName + i + ";\n";
-        }
-        
-        pSub += "\n";
-        pSub += "    public " + subName + "() { \n";
-        
-        for (int i = 0; i < pNumber; i++) 
-        {
-            pSub += "        " + pName + i + " = new Solenoid(Constants." + pName.toUpperCase() + i + "); \n";
-        }
-        
-        pSub += "    } \n";
-        pSub += "\n";
-        pSub += txtToString("canSub2.txt");
-        pSub += "\n";
-        pSub += "\n";
-        pSub += "    public void " + pName + "On() { \n";
-        
-        for (int i = 0; i < pNumber; i++) 
-        {
-            pSub += "        " + pName + i + ".set(true); \n";
-        }
-        
-        pSub += "    } \n";
-        pSub += "\n";
-        pSub += "    public void " + pName + "Off() { \n";
-        
-        for (int i = 0; i < pNumber; i++) 
-        {
-            pSub += "        " + pName + i + ".set(false); \n";
-        }
-        
-        pSub += "    } \n";
-        pSub += "}";
-    	
-        pneumaticsData.add(pSub);
-        
-        pCmd = makeCommand(pName);
-        
-        pneumaticsData.add(pCmd);
-        return pneumaticsData;
+        return cmdString;
     }
 
     /**
@@ -276,14 +276,14 @@ public class FRCWriter
      * @param fileName The name of the file the method will be reading
      * @return A string containing all the text from the file including indents and new lines
      */
-    private String txtToString(String fileName) 
+    private String txtToString(String fileName)
     {
         String txtToString = "";
         try 
         {
             txtToString = new String(Files.readAllBytes(Paths.get(fileName)));
         } 
-        catch (IOException exception) 
+        catch (IOException exception)
         {
             exception.printStackTrace();
         }
