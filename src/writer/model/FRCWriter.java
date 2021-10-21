@@ -148,7 +148,31 @@ public class FRCWriter
     public ArrayList < String > rioMotor(int rioNumber, String rioName) 
     {
     	ArrayList < String > rioMotorData = new ArrayList < String > ();
-
+    	
+    	String subName = rioName + "Sub";
+    	String rioSub = "";
+    	String rioCmd = "";
+    	
+    	rioSub += txtToString("canSub1.txt");
+        rioSub += "\n";
+        rioSub += "\n";
+        rioSub += "public class " + subName + " extends SubsystemBase { \n";
+        rioSub += "    /**  Creates a new " + subName + ". */ \n";
+        
+        for (int i = 0; i < rioNumber; i++)
+        {
+        	rioSub += "    private Victor " + rioName + i + ";\n";
+        }
+        
+        rioSub += "\n";
+        rioSub += "    public " + subName + "() { \n";
+        
+        for (int i = 0; i < rioNumber; i++) 
+        {
+            rioSub += "        Victor " + rioName + i + " = new Victor(Constants." + rioName.toUpperCase() + i + "); \n";
+        }
+        
+    	
         return rioMotorData;
     }
 
