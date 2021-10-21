@@ -196,6 +196,11 @@ public class FRCWriter
         rioSub += "\n";
         rioSub += "    public void " + rioName + "Off() { \n";
         
+        for (int i = 0; i < rioNumber; i++) 
+        {
+            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_OFF_SPEED); \n";
+        }
+        
         rioSub += "    } \n";
         rioSub += "}";
     	
@@ -211,7 +216,58 @@ public class FRCWriter
     public ArrayList < String > pneumatics(int pNumber, String pName) 
     {
     	ArrayList < String > pneumaticsData = new ArrayList < String > ();
-
+    	String subName = pName + "Sub";
+    	String pSub = "";
+    	String pCmd = "";
+    	
+    	pSub += txtToString("canSub1.txt");
+        pSub += "\n";
+        pSub += "\n";
+        pSub += "public class " + subName + " extends SubsystemBase { \n";
+        pSub += "    /**  Creates a new " + subName + ". */ \n";
+        
+        for (int i = 0; i < pNumber; i++)
+        {
+        	pSub += "    private Final Solenoid " + pName + i + ";\n";
+        }
+        
+        pSub += "\n";
+        pSub += "    public " + subName + "() { \n";
+        
+        for (int i = 0; i < pNumber; i++) 
+        {
+            pSub += "        " + pName + i + " = new Solenoid(Constants." + pName.toUpperCase() + i + "); \n";
+        }
+        
+        pSub += "    } \n";
+        pSub += "\n";
+        pSub += txtToString("canSub2.txt");
+        pSub += "\n";
+        pSub += "\n";
+        pSub += "    public void " + pName + "On() { \n";
+        
+        for (int i = 0; i < pNumber; i++) 
+        {
+            pSub += "        " + pName + i + ".set(Constants." + pName.toUpperCase() + "_ON); \n";
+        }
+        
+        pSub += "    } \n";
+        pSub += "\n";
+        pSub += "    public void " + pName + "Off() { \n";
+        
+        for (int i = 0; i < pNumber; i++) 
+        {
+            pSub += "        " + pName + i + ".set(Constants." + pName.toUpperCase() + "_OFF); \n";
+        }
+        
+        pSub += "    } \n";
+        pSub += "}";
+    	
+        pneumaticsData.add(pSub);
+        
+        pCmd = makeCommand(pName);
+        
+        pneumaticsData.add(pCmd);
         return pneumaticsData;
     }
 
