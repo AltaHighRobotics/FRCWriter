@@ -271,9 +271,15 @@ public class FRCWriter
         return cmdString;
     }
 
-      public String controltxt()
+      public String controltxt(String name)
       {
     	  String control = "";
+    	  String subName = name + "Sub";
+    	  String cmdName = name + "Command";
+    	  
+    	  control += txtToString("control1.txt");
+    	  control += "  private final " + subName + " m_" + subName.toLowerCase() + " = new " + subName + "();";
+    	  control += "  private final " + cmdName + "m_";
     	  
     	  return control;
       }
