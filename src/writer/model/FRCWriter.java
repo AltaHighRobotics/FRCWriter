@@ -271,6 +271,13 @@ public class FRCWriter
         return cmdString;
     }
 
+      public String controltxt()
+      {
+    	  String control = "";
+    	  
+    	  return control;
+      }
+    		  
     /**
      * takes a .txt file and turns it into a string
      * @param fileName The name of the file the method will be reading
