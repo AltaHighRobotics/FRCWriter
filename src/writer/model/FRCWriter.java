@@ -59,9 +59,10 @@ public class FRCWriter
         ArrayList < String > canMotorData = new ArrayList < String > ();
         String canSub = "";
         String canCmd = "";
+        String control = "";
 
         //adding new text to canSub based parameters
-        canSub += txtToString("canSub1.txt");
+        canSub += txtToString("SUB1.txt");
         canSub += "\n";
         canSub += "\n";
         canSub += "public class " + subName + " extends SubsystemBase { \n";
@@ -90,7 +91,7 @@ public class FRCWriter
 
         canSub += "    } \n";
         canSub += "\n";
-        canSub += txtToString("canSub2.txt");
+        canSub += txtToString("SUB2.txt");
         canSub += "\n";
         canSub += "\n";
         canSub += "    public void " + canName + "On() { \n";
@@ -122,7 +123,11 @@ public class FRCWriter
         canCmd = makeCommand(canName);
         //adding the string to a list at index 1
         canMotorData.add(canCmd);
-
+        
+        control = controltxt(canName, canNumber); 
+        
+        canMotorData.add(control);
+        
         return canMotorData;
     }
 
@@ -133,8 +138,9 @@ public class FRCWriter
         String subName = rioName + "Sub";
         String rioSub = "";
         String rioCmd = "";
+        String control = "";
 
-        rioSub += txtToString("canSub1.txt");
+        rioSub += txtToString("SUB1.txt");
         rioSub += "\n";
         rioSub += "\n";
         rioSub += "public class " + subName + " extends SubsystemBase { \n";
@@ -157,7 +163,7 @@ public class FRCWriter
 
         rioSub += "    } \n";
         rioSub += "\n";
-        rioSub += txtToString("canSub2.txt");
+        rioSub += txtToString("SUB2.txt");
         rioSub += "\n";
         rioSub += "\n";
         rioSub += "    public void " + rioName + "On() { \n";
@@ -186,7 +192,11 @@ public class FRCWriter
         rioCmd = makeCommand(rioName);
 
         rioMotorData.add(rioCmd);
-
+        
+        control = controltxt(rioName, rioNumber);
+        
+        rioMotorData.add(control);
+        
         return rioMotorData;
     }
 
@@ -196,8 +206,9 @@ public class FRCWriter
         String subName = pName + "Sub";
         String pSub = "";
         String pCmd = "";
+        String control = "";
 
-        pSub += txtToString("canSub1.txt");
+        pSub += txtToString("SUB1.txt");
         pSub += "\n";
         pSub += "\n";
         pSub += "public class " + subName + " extends SubsystemBase { \n";
@@ -220,7 +231,7 @@ public class FRCWriter
 
         pSub += "    } \n";
         pSub += "\n";
-        pSub += txtToString("canSub2.txt");
+        pSub += txtToString("SUB2.txt");
         pSub += "\n";
         pSub += "\n";
         pSub += "    public void " + pName + "On() { \n";
@@ -247,15 +258,20 @@ public class FRCWriter
         pneumaticsData.add(pSub);
 
         pCmd = makeCommand(pName);
-
+        
         pneumaticsData.add(pCmd);
+        
+        control = controltxt(pName, pNumber);
+        
+        pneumaticsData.add(control);
+        
         return pneumaticsData;
     }
     
       public String makeCommand(String cmdName) 
     {
         String cmdString = "";
-        cmdString += txtToString("canCmd1.txt");
+        cmdString += txtToString("CMD1.txt");
         cmdString += "\n";
         cmdString += "import frc.robot.subsystems." + cmdName + "Sub; \n";
         cmdString += "\n";
@@ -268,7 +284,7 @@ public class FRCWriter
         cmdString += "    addRequirements(m_" + cmdName.toLowerCase() + "Sub); \n";
         cmdString += "  } \n";
         cmdString += "\n";
-        cmdString += txtToString("canCmd2.txt");
+        cmdString += txtToString("CMD2.txt");
         cmdString += "\n";
         cmdString += "    m_" + cmdName.toLowerCase() + "Sub." + cmdName + "On(); \n";
         cmdString += "  } \n";
@@ -279,7 +295,7 @@ public class FRCWriter
         cmdString += "    m_" + cmdName.toLowerCase() + "Sub." + cmdName + "Off(); \n";
         cmdString += "  } \n";
         cmdString += "\n";
-        cmdString += txtToString("canCmd3.txt");
+        cmdString += txtToString("CMD3.txt");
 
         return cmdString;
     }
@@ -290,11 +306,17 @@ public class FRCWriter
     	  String subName = name + "Sub";
     	  String cmdName = name + "Command";
     	  
-    	  control += txtToString("control1.txt");
+    	  control += txtToString("CONTROL1.txt");
     	  control += "\n";
     	  control += "  private final " + subName + " m_" + subName.toLowerCase() + " = new " + subName + "(); \n";
-    	  control += "  private final " + cmdName + "m_" + cmdName.toLowerCase() + " = new " + cmdName + "(m_" + subName.toLowerCase() + "); \n" ;
-    	  control += txtToString("control2.txt");
+    	  control += "  private final " + cmdName + " m_" + cmdName.toLowerCase() + " = new " + cmdName + "(m_" + subName.toLowerCase() + "); \n" ;
+    	  control += txtToString("CONTROL2.txt");
+    	  control += "\n";
+    	  control += "    final JoystickButton " + name.toLowerCase() + "Button = new JoystickButton(driveController, Constants.XBOX_A_BUTTON); \n";
+    	  control += "    " + name.toLowerCase() + "Button.whenPressed(m_" + cmdName.toLowerCase() + "); \n";
+    	  control += txtToString("CONTROL3.txt");
+    	  control += "\n";
+    	  control += txtToString("CONTROL4.txt");
     	  control += "\n";
     	  control += "        public static final double " + name.toUpperCase() + "_ON_SPEED \n";
     	  control += "        public static final double " + name.toUpperCase() + "_OFF_SPEED \n";
@@ -304,6 +326,7 @@ public class FRCWriter
     		  control += "        public static final int " + name.toUpperCase() + motorNum + " = 0; \n";
     	  }
     	  control += "}";
+    	  
     	  
     	  return control;
       }

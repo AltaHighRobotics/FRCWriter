@@ -15,6 +15,7 @@ public class Controller
     public String objectName;
     public String javaSub;
     public String javaCmd;
+    public String javaControl; 
     private Frame window;
 
     public Controller() 
@@ -23,6 +24,7 @@ public class Controller
         this.mywrite = new FRCWriter();
         this.javaSub = objectName + "Sub.java";
         this.javaCmd = objectName + "Command.java";
+        this.javaControl = objectName + "Control.txt";
     }
 
     public void main() 
@@ -39,6 +41,7 @@ public class Controller
         objectName = name;
         javaSub = objectName + "Sub.java";
         javaCmd = objectName + "Command.java";
+        javaControl = objectName + "Control.txt";
         writeFRCFiles();
     }
 
@@ -105,6 +108,35 @@ public class Controller
             FileWriter cmdWriter = new FileWriter(javaCmd);
             cmdWriter.write(dataList.get(1));
             cmdWriter.close();
+           //System.out.println("Successfully wrote to the file.");
+        } 
+        catch (IOException e) 
+        {
+            //System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        try 
+        {
+            File controlFile = new File(javaControl);
+            if (controlFile.createNewFile()) 
+            {
+                //System.out.println("Sub File Created");
+            } 
+            else 
+            {
+               // System.out.println("Sub File already exists, quitting program");
+            }
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("ERROR IOEXCEPTION");
+            e.printStackTrace();
+        }
+        try 
+        {
+            FileWriter controlWriter = new FileWriter(javaControl);
+            controlWriter.write(dataList.get(2));
+            controlWriter.close();
            //System.out.println("Successfully wrote to the file.");
         } 
         catch (IOException e) 
