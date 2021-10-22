@@ -69,7 +69,8 @@ public class FRCWriter
 
         for (int i = 0; i < canNumber; i++) 
         {
-            canSub += "    private TalonFX " + canName + i + ";\n";
+        	int motorNum = i + 1;
+            canSub += "    private TalonFX " + canName + motorNum + ";\n";
         }
 
         canSub += "\n";
@@ -77,12 +78,14 @@ public class FRCWriter
 
         for (int i = 0; i < canNumber; i++) 
         {
-            canSub += "        TalonFX " + canName + i + " = new TalonFX(Constants." + canName.toUpperCase() + i + "); \n";
+        	int motorNum = i + 1;
+            canSub += "        TalonFX " + canName + motorNum + " = new TalonFX(Constants." + canName.toUpperCase() + motorNum + "); \n";
         }
 
         for (int i = 0; i < canNumber; i++) 
         {
-            canSub += "        " + canName + i + ".setNeutralMode(NeutralMode.Coast); \n";
+        	int motorNum = i + 1;
+            canSub += "        " + canName + motorNum + ".setNeutralMode(NeutralMode.Coast); \n";
         }
 
         canSub += "    } \n";
@@ -94,7 +97,8 @@ public class FRCWriter
 
         for (int i = 0; i < canNumber; i++)
         {
-            canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_ON_SPEED); \n";
+        	int motorNum = i + 1;
+            canSub += "        " + canName + motorNum + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_ON_SPEED); \n";
         }
 
         canSub += "    } \n";
@@ -103,7 +107,8 @@ public class FRCWriter
 
         for (int i = 0; i < canNumber; i++) 
         {
-            canSub += "        " + canName + i + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_OFF_SPEED); \n";
+        	int motorNum = i + 1;
+            canSub += "        " + canName + motorNum + ".set(ControlMode.PercentOutput, Constants." + canName.toUpperCase() + "_OFF_SPEED); \n";
         }
 
         canSub += "    } \n";
@@ -137,7 +142,8 @@ public class FRCWriter
 
         for (int i = 0; i < rioNumber; i++)
         {
-            rioSub += "    private Victor " + rioName + i + ";\n";
+        	int motorNum = i + 1;
+            rioSub += "    private Victor " + rioName + motorNum + ";\n";
         }
 
         rioSub += "\n";
@@ -145,7 +151,8 @@ public class FRCWriter
 
         for (int i = 0; i < rioNumber; i++) 
         {
-            rioSub += "        Victor " + rioName + i + " = new Victor(Constants." + rioName.toUpperCase() + i + "); \n";
+        	int motorNum = i + 1;
+            rioSub += "        Victor " + rioName + motorNum + " = new Victor(Constants." + rioName.toUpperCase() + motorNum + "); \n";
         }
 
         rioSub += "    } \n";
@@ -157,7 +164,8 @@ public class FRCWriter
 
         for (int i = 0; i < rioNumber; i++) 
         {
-            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_ON_SPEED); \n";
+        	int motorNum = i + 1;
+            rioSub += "        " + rioName + motorNum + ".set(Constants." + rioName.toUpperCase() + "_ON_SPEED); \n";
         }
 
         rioSub += "    } \n";
@@ -166,7 +174,8 @@ public class FRCWriter
 
         for (int i = 0; i < rioNumber; i++) 
         {
-            rioSub += "        " + rioName + i + ".set(Constants." + rioName.toUpperCase() + "_OFF_SPEED); \n";
+        	int motorNum = i + 1;
+            rioSub += "        " + rioName + motorNum + ".set(Constants." + rioName.toUpperCase() + "_OFF_SPEED); \n";
         }
 
         rioSub += "    } \n";
@@ -196,7 +205,8 @@ public class FRCWriter
 
         for (int i = 0; i < pNumber; i++)
         {
-            pSub += "    private Final Solenoid " + pName + i + ";\n";
+        	int pNum = i + 1;
+            pSub += "    private Final Solenoid " + pName + pNum + ";\n";
         }
 
         pSub += "\n";
@@ -204,7 +214,8 @@ public class FRCWriter
 
         for (int i = 0; i < pNumber; i++)
         {
-            pSub += "        " + pName + i + " = new Solenoid(Constants." + pName.toUpperCase() + i + "); \n";
+        	int pNum = i + 1;
+            pSub += "        " + pName + pNum + " = new Solenoid(Constants." + pName.toUpperCase() + pNum + "); \n";
         }
 
         pSub += "    } \n";
@@ -216,7 +227,8 @@ public class FRCWriter
 
         for (int i = 0; i < pNumber; i++) 
         {
-            pSub += "        " + pName + i + ".set(true); \n";
+        	int pNum = i + 1;
+            pSub += "        " + pName + pNum + ".set(true); \n";
         }
 
         pSub += "    } \n";
@@ -225,7 +237,8 @@ public class FRCWriter
 
         for (int i = 0; i < pNumber; i++) 
         {
-            pSub += "        " + pName + i + ".set(false); \n";
+        	int pNum = i + 1;
+            pSub += "        " + pName + pNum + ".set(false); \n";
         }
 
         pSub += "    } \n";
@@ -271,15 +284,26 @@ public class FRCWriter
         return cmdString;
     }
 
-      public String controltxt(String name)
+      public String controltxt(String name, int objNum)
       {
     	  String control = "";
     	  String subName = name + "Sub";
     	  String cmdName = name + "Command";
     	  
     	  control += txtToString("control1.txt");
-    	  control += "  private final " + subName + " m_" + subName.toLowerCase() + " = new " + subName + "();";
-    	  control += "  private final " + cmdName + "m_";
+    	  control += "\n";
+    	  control += "  private final " + subName + " m_" + subName.toLowerCase() + " = new " + subName + "(); \n";
+    	  control += "  private final " + cmdName + "m_" + cmdName.toLowerCase() + " = new " + cmdName + "(m_" + subName.toLowerCase() + "); \n" ;
+    	  control += txtToString("control2.txt");
+    	  control += "\n";
+    	  control += "        public static final double " + name.toUpperCase() + "_ON_SPEED \n";
+    	  control += "        public static final double " + name.toUpperCase() + "_OFF_SPEED \n";
+    	  for (int i = 0; i < objNum; i++)
+    	  {
+    		  int motorNum = i + 1;
+    		  control += "        public static final int " + name.toUpperCase() + motorNum + " = 0; \n";
+    	  }
+    	  control += "}";
     	  
     	  return control;
       }
