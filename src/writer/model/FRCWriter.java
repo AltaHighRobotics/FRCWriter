@@ -316,10 +316,10 @@ public class FRCWriter
     	  control += "    " + name.toLowerCase() + "Button.whenPressed(m_" + cmdName.toLowerCase() + "); \n";
     	  control += txtToString("CONTROL3.txt");
     	  control += "\n";
-    	  control += txtToString("CONTROL4.txt");
-    	  control += "\n";
+    	  
     	  control += "        public static final double " + name.toUpperCase() + "_ON_SPEED \n";
     	  control += "        public static final double " + name.toUpperCase() + "_OFF_SPEED \n";
+    	  
     	  for (int i = 0; i < objNum; i++)
     	  {
     		  int motorNum = i + 1;
