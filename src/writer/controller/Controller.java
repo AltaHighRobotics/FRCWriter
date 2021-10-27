@@ -94,6 +94,8 @@ public class Controller
             e.printStackTrace();
         }
 
+        
+        
         //creates command java file
         try 
         {
@@ -126,16 +128,19 @@ public class Controller
             popup.displayMessage("An error occurred.");
             e.printStackTrace();
         }
+        
+        
+        
         try 
         {
             File controlFile = new File(javaControl);
             if (controlFile.createNewFile()) 
             {
-            	//popup.displayMessage("Sub File Created");
+            	//popup.displayMessage("Control File Created");
             } 
             else 
             {
-            	//popup.displayMessage("Sub File already exists, quitting program");
+            	//popup.displayMessage("Control File already exists, quitting program");
             }
         } 
         catch (IOException e) 

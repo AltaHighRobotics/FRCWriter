@@ -20,7 +20,7 @@ public class Frame extends JFrame
 	private void setupFrame()
 	{
 		this.setContentPane(panel);
-		this.setSize(800,600);
+		this.setSize(700,300);
 		this.setTitle("FRC Writer 2021");
 		this.setResizable(true);
 		this.setVisible(true);
