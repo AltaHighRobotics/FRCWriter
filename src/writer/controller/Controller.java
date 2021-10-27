@@ -43,7 +43,14 @@ public class Controller
         javaSub = objectName + "Sub.java";
         javaCmd = objectName + "Command.java";
         javaControl = objectName + "Control.txt";
-        writeFRCFiles();
+        if (name.indexOf(" ") > -1)
+        {
+        	popup.displayMessage("Error! Please remove spaces from name.");
+        }
+        else
+        {
+        	writeFRCFiles();	
+        }
     }
 
     /**
