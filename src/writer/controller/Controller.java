@@ -5,8 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import writer.model.FRCWriter;
-import writer.view.Frame;
-import writer.view.Panel;
+import writer.view.*;
 
 public class Controller 
 {
@@ -17,6 +16,7 @@ public class Controller
     public String javaCmd;
     public String javaControl; 
     private Frame window;
+    private Popup popup;
 
     public Controller() 
     {
@@ -25,6 +25,7 @@ public class Controller
         this.javaSub = objectName + "Sub.java";
         this.javaCmd = objectName + "Command.java";
         this.javaControl = objectName + "Control.txt";
+        this.popup = new Popup();
     }
 
     public void main() 
@@ -50,22 +51,25 @@ public class Controller
      */
     public void writeFRCFiles() 
     {
+    	String pop1 = "Warning! error occured in subsystem file!";
+    	String pop2 = "";
+    	String pop3 = "";
         //creates subsystem java file
         try 
         {
             File subFile = new File(javaSub);
             if (subFile.createNewFile()) 
             {
-                //System.out.println("Sub File Created");
+            	//popup.displayMessage("Sub File Created");
             } 
             else 
             {
-               // System.out.println("Sub File already exists, quitting program");
+            	//popup.displayMessage("Sub File already exists, overwriting");
             }
         } 
         catch (IOException e) 
         {
-            System.out.println("ERROR IOEXCEPTION");
+        	popup.displayMessage("ERROR IOEXCEPTION");
             e.printStackTrace();
         }
 
@@ -75,11 +79,11 @@ public class Controller
             FileWriter subWriter = new FileWriter(javaSub);
             subWriter.write(dataList.get(0));
             subWriter.close();
-           // System.out.println("Successfully wrote to the file.");
+            pop1 = "Subsystem successfully created.";
         } 
         catch (IOException e) 
         {
-           // System.out.println("An error occurred.");
+        	popup.displayMessage("ERROR IOEXCEPTION");
             e.printStackTrace();
         }
 
@@ -89,16 +93,16 @@ public class Controller
             File cmdFile = new File(javaCmd);
             if (cmdFile.createNewFile()) 
             {
-               // System.out.println("Command File Created");
+            	//popup.displayMessage("Command File Created");
             } 
             else 
             {
-               // System.out.println("Command File already exists, quitting program");
+            	//popup.displayMessage("Command File already exists, quitting program");
             }
         } 
         catch (IOException e) 
         {
-            //System.out.println("ERROR IOEXCEPTION");
+        	popup.displayMessage("ERROR IOEXCEPTION");
             e.printStackTrace();
         }
 
@@ -108,11 +112,11 @@ public class Controller
             FileWriter cmdWriter = new FileWriter(javaCmd);
             cmdWriter.write(dataList.get(1));
             cmdWriter.close();
-           //System.out.println("Successfully wrote to the file.");
+            pop2 = "Command successfully created.";
         } 
         catch (IOException e) 
         {
-            //System.out.println("An error occurred.");
+            popup.displayMessage("An error occurred.");
             e.printStackTrace();
         }
         try 
@@ -120,11 +124,11 @@ public class Controller
             File controlFile = new File(javaControl);
             if (controlFile.createNewFile()) 
             {
-                //System.out.println("Sub File Created");
+            	//popup.displayMessage("Sub File Created");
             } 
             else 
             {
-               // System.out.println("Sub File already exists, quitting program");
+            	//popup.displayMessage("Sub File already exists, quitting program");
             }
         } 
         catch (IOException e) 
@@ -137,13 +141,15 @@ public class Controller
             FileWriter controlWriter = new FileWriter(javaControl);
             controlWriter.write(dataList.get(2));
             controlWriter.close();
-           //System.out.println("Successfully wrote to the file.");
+            pop3 = "Control successfully created";
         } 
         catch (IOException e) 
         {
-            //System.out.println("An error occurred.");
+        	popup.displayMessage("An error occurred.");
             e.printStackTrace();
         }
+        
+        popup.displayMessage(pop1 + "\n" + pop2 + "\n" + pop3);
 
     }
 }
