@@ -43,6 +43,7 @@ public class Controller
         javaSub = objectName + "Sub.java";
         javaCmd = objectName + "Command.java";
         javaControl = objectName + "Control.txt";
+        char firstLetter = name.charAt(0);
         if (name.indexOf(" ") > -1)
         {
         	popup.displayMessage("Error! Please remove spaces from name.");

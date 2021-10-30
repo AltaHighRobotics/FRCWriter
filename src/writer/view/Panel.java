@@ -11,7 +11,7 @@ public class Panel extends JPanel
 	private Controller controller;
 	private JButton runButton;
 	private JComboBox <String> objectType; 
-	private String [] objectList = {"Can Motor","Rio Motor", "Pneumatic"};  
+	private String [] objectList = {"Talon Motor","Typical Motor", "Pneumatic"};  
 	private SpinnerModel objectNumber = new SpinnerNumberModel (1,1,15,1);
 	private JTextField objectName;
 	public JSpinner spinner;

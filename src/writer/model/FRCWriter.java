@@ -29,11 +29,11 @@ public class FRCWriter
         ArrayList < String > data = new ArrayList < String > ();
 
         //checks to see if a can motor is being used
-        if (objectType.equals("Can Motor")) 
+        if (objectType.equals("Talon Motor")) 
         {
             data = canMotor(objectNumber, objectName);
         }
-        if (objectType.equals("Rio Motor")) 
+        if (objectType.equals("Typical Motor")) 
         {
             data = rioMotor(objectNumber, objectName);
         }
